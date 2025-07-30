@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .accordion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding-top: 30px;
+      }
+      .toggle {
+        cursor: pointer;
+      }
+      .content.active {
+        display: block;
+      }
+      .content {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="accordion" id="accordion">
+      <div>
+        <h3>Content1 <span class="toggle" data-index="0">▶</span></h3>
+        <div class="content">Hello of content1</div>
+      </div>
+      <div>
+        <h3>Content2 <span class="toggle" data-index="1">▶</span></h3>
+        <div class="content">Hello of content2</div>
+      </div>
+      <div>
+        <h3>Content3 <span class="toggle" data-index="2">▶</span></h3>
+        <div class="content">Hello of content3</div>
+      </div>
+      <div>
+        <h3>Content4 <span class="toggle" data-index="3">▶</span></h3>
+        <div class="content">Hello of content4</div>
+      </div>
+    </div>
+    <script>
+      const toggles = document.querySelectorAll(".toggle");
+      const contents = document.querySelectorAll(".content");
+      let isOpen = false;
+      let activeIndex = null;
+      console.log("toggles", toggles);
+      console.log("contents", contents);
+      toggles.forEach((toggle, index) => {
+        toggle.addEventListener("click", () => {
+        console.log("cliked Item activeIndex and Index",activeIndex,index);
+        
+          if (activeIndex === index) {
+            console.log("entered if activeindex equal index block")
+            //toggle the same item
+            isOpen = !isOpen;
+          } else {
+            console.log("entered else block")
+            isOpen = true;
+            activeIndex = index;
+          }
+
+        //update UI
+        contents.forEach((content, i) => {
+          console.log("entered contents for each");
+          
+          const icon=toggles[i]
+          console.log("icon",icon)
+          if (i === activeIndex && isOpen) {
+            console.log("entered active index")
+            content.classList.add("active");
+            icon.textContent = "▼";
+          } else {
+            console.log("entered remove actice index");           
+            content.classList.remove("active");
+            icon.textContent = "▶";
+          }
+        });
+        });
+
+      });
+    </script>
+  </body>
+</html>
